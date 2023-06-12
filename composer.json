@@ -1,0 +1,29 @@
+{
+    "name": "tohyo/open-graph-bundle",
+    "description": "Symfony bundle to retrieve open graph data",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Tohyo\\OpenGraphBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tohyo\\OpenGraphBundle\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^8.2",
+        "symfony/config": "^6.3",
+        "symfony/dependency-injection": "^6.3",
+        "symfony/http-kernel": "^6.3",
+        "symfony/http-client": "^6.3",
+        "symfony/dom-crawler": "^6.3",
+        "symfony/framework-bundle": "^6.3",
+        "symfony/css-selector": "^6.3"
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "^6.3"
+    }
+}
