@@ -5,12 +5,13 @@ namespace Tohyo\OpenGraphBundle\Tests;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
+use Symfony\Component\Validator\ValidatorBuilder;
 use Tohyo\OpenGraphBundle\Dto\OpenGraphData;
 use Tohyo\OpenGraphBundle\OpenGraph;
 
 class UnitTest extends TestCase
 {
-    public function testUnit()
+    public function test_it_populates_dto_correctly()
     {
         $response = new MockResponse(
             <<<'HTML'
@@ -32,8 +33,11 @@ class UnitTest extends TestCase
 HTML
         );
 
-        $openGraphService = new OpenGraph(new MockHttpClient($response));
-        $openGraphData = $openGraphService->getData('url');
+        $openGraphService = new OpenGraph(
+            new MockHttpClient($response),
+            (new ValidatorBuilder())->getValidator()
+        );
+        $openGraphData = $openGraphService->getData('http://test-open-graph-url.com');
 
         $this->assertInstanceOf(OpenGraphData::class, $openGraphData);
 
@@ -45,5 +49,17 @@ HTML
         $this->assertSame('website-locale', $openGraphData->locale);
         $this->assertArrayHasKey('nook', $openGraphData->others);
         $this->assertContains('nook', $openGraphData->others);
+    }
+
+    public function test_it_throws_a_invalid_argument_exception_when_url_is_not_valid()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $openGraphService = new OpenGraph(
+            new MockHttpClient(),
+            (new ValidatorBuilder())->getValidator()
+        );
+
+        $openGraphService->getData('not-a-url');
     }
 }

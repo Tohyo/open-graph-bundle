@@ -6,6 +6,7 @@
     <services>
         <service id="tohyo_open_graph.open_graph" class="Tohyo\OpenGraphBundle\OpenGraph" public="true">
             <argument type="service" id="http_client" />
+            <argument type="service" id="validator" />
         </service>
         <service id="Tohyo\OpenGraphBundle\OpenGraph" alias="tohyo_open_graph.open_graph" />
     </services>
