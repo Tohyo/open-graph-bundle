@@ -4,6 +4,7 @@ namespace Tohyo\OpenGraphBundle;
 
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Validator\Constraints\Url;
+use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Tohyo\OpenGraphBundle\Dto\OpenGraphData;
@@ -22,10 +23,8 @@ class OpenGraph
         $this->openGraphData = new OpenGraphData();
     }
 
-    public function getData(
-        string $url
-    ): OpenGraphData {
-
+    public function getData(string $url): OpenGraphData
+    {
         if (count($this->validator->validate($url, new Url())) > 0) {
             throw new \InvalidArgumentException(sprintf("This value is not a valid URL: %s", $url));
         }
@@ -37,6 +36,8 @@ class OpenGraph
                 $node->attr('content')
             );
         });
+
+        $this->resetPropertyWhenValidationFails($this->validator->validate($this->openGraphData));
 
         return $this->openGraphData;
     }
@@ -53,5 +54,12 @@ class OpenGraph
     private function sanitizePropertyName(string $property): string
     {
         return str_replace('og:', '', $property);
+    }
+
+    private function resetPropertyWhenValidationFails(ConstraintViolationList $constraintViolationList): void
+    {
+        foreach ($constraintViolationList as $constraintViolation) {
+            $this->openGraphData->{$constraintViolation->getPropertyPath()} = null;
+        }
     }
 }
