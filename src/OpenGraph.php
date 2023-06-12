@@ -23,7 +23,7 @@ class OpenGraph
                 $openGraphData->{str_replace('og:', '',$node->attr('property'))} = $node->attr('content');
             } else {
                 $openGraphData->others = [
-                    $node->attr('property') => $node->attr('content')
+                    str_replace('og:', '', $node->attr('property')) => $node->attr('content')
                 ];
             }
         });
