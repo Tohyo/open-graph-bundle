@@ -18,14 +18,14 @@ class UnitTest extends TestCase
 <!DOCTYPE html>
 <html>
     <head>
-    <meta property="og:title" content="website-title">
-    <meta property="og:url" content="website-url">
-    <meta property="og:type" content="website-type">
-    <meta property="og:image" content="website-image">
-    <meta property="og:description" content="website-description">
-    <meta property="og:locale" content="website-locale">
-    <meta property="og:nook" content="nook">
-</head>
+        <meta property="og:title" content="website-title">
+        <meta property="og:url" content="website-url">
+        <meta property="og:type" content="website-type">
+        <meta property="og:image" content="website-image">
+        <meta property="og:description" content="website-description">
+        <meta property="og:locale" content="website-locale">
+        <meta property="og:nook" content="nook">
+    </head>
     <body>
         
     </body>

@@ -4,17 +4,17 @@ namespace Tohyo\OpenGraphBundle\Dto;
 
  class OpenGraphData
 {
-        public string $title;
+        public ?string $title = null;
 
-        public string $url;
+        public ?string $url = null;
 
-        public string $type;
+        public ?string $type = null;
 
-        public string $image;
+        public ?string $image = null;
 
-        public string $description;
+        public ?string $description = null;
 
-        public string $locale;
+        public ?string $locale = null;
 
-        public array $others;
+        public array $others = [];
 }
