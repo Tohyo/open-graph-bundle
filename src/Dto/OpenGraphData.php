@@ -3,6 +3,7 @@
 namespace Tohyo\OpenGraphBundle\Dto;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Tohyo\OpenGraphBundle\Attributes\DefaultProperty;
 
  class OpenGraphData
 {
@@ -13,11 +14,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 
         public ?string $type = null;
 
-        public ?string $image = null;
+        #[DefaultProperty('url')]
+        public OpenGraphImageData $image;
 
         public ?string $description = null;
 
         public ?string $locale = null;
 
-        public array $others = [];
+        public function __construct()
+        {
+            $this->image = new OpenGraphImageData();
+        }
+
 }

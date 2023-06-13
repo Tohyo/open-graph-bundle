@@ -24,7 +24,6 @@ class UnitTest extends TestCase
         <meta property="og:image" content="website-image">
         <meta property="og:description" content="website-description">
         <meta property="og:locale" content="website-locale">
-        <meta property="og:nook" content="nook">
     </head>
     <body>
         
@@ -47,11 +46,9 @@ HTML
         $this->assertSame('website-title', $openGraphData->title);
         $this->assertSame('https://www.good-url.com', $openGraphData->url);
         $this->assertSame('website-type', $openGraphData->type);
-        $this->assertSame('website-image', $openGraphData->image);
+        $this->assertSame('website-image', $openGraphData->image->url);
         $this->assertSame('website-description', $openGraphData->description);
         $this->assertSame('website-locale', $openGraphData->locale);
-        $this->assertArrayHasKey('nook', $openGraphData->others);
-        $this->assertContains('nook', $openGraphData->others);
     }
 
     public function test_it_reset_property_when_validation_fails()
@@ -90,11 +87,9 @@ HTML
         $this->assertSame('website-title', $openGraphData->title);
         $this->assertSame(null, $openGraphData->url);
         $this->assertSame('website-type', $openGraphData->type);
-        $this->assertSame('website-image', $openGraphData->image);
+        $this->assertSame('website-image', $openGraphData->image->url);
         $this->assertSame('website-description', $openGraphData->description);
         $this->assertSame('website-locale', $openGraphData->locale);
-        $this->assertArrayHasKey('nook', $openGraphData->others);
-        $this->assertContains('nook', $openGraphData->others);
     }
 
     public function test_it_throws_a_invalid_argument_exception_when_url_is_not_valid()
