@@ -22,6 +22,7 @@ class UnitTest extends TestCase
         <meta property="og:url" content="https://www.good-url.com">
         <meta property="og:type" content="website-type">
         <meta property="og:image" content="website-image">
+        <meta property="og:video" content="website-video">
         <meta property="og:description" content="website-description">
         <meta property="og:locale" content="website-locale">
     </head>
@@ -47,6 +48,7 @@ HTML
         $this->assertSame('https://www.good-url.com', $openGraphData->url);
         $this->assertSame('website-type', $openGraphData->type);
         $this->assertSame('website-image', $openGraphData->image->url);
+        $this->assertSame('website-video', $openGraphData->video->url);
         $this->assertSame('website-description', $openGraphData->description);
         $this->assertSame('website-locale', $openGraphData->locale);
     }
@@ -131,6 +133,46 @@ HTML
         $this->assertSame('image-width', $openGraphData->image->width);
         $this->assertSame('image-height', $openGraphData->image->height);
         $this->assertSame('image-alt', $openGraphData->image->alt);
+    }
+
+    public function test_it_populate_correctly_video_structured_data()
+    {
+        $response = new MockResponse(
+            <<<'HTML'
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta property="og:video:url" content="video-url">
+        <meta property="og:video:secure_url" content="video-secure-url">
+        <meta property="og:video:type" content="video-type">
+        <meta property="og:video:width" content="video-width">
+        <meta property="og:video:height" content="video-height">
+        <meta property="og:video:alt" content="video-alt">
+    </head>
+    <body>
+        
+    </body>
+</html>
+HTML
+        );
+
+        $openGraphService = new OpenGraph(
+            new MockHttpClient($response),
+            Validation::createValidatorBuilder()
+                ->enableAnnotationMapping()
+                ->getValidator()
+        );
+
+        $openGraphData = $openGraphService->getData('http://test-open-graph-url.com');
+
+        $this->assertInstanceOf(OpenGraphData::class, $openGraphData);
+
+        $this->assertSame('video-url', $openGraphData->video->url);
+        $this->assertSame('video-secure-url', $openGraphData->video->secureUrl);
+        $this->assertSame('video-type', $openGraphData->video->type);
+        $this->assertSame('video-width', $openGraphData->video->width);
+        $this->assertSame('video-height', $openGraphData->video->height);
+        $this->assertSame('video-alt', $openGraphData->video->alt);
     }
 
     public function test_it_throws_a_invalid_argument_exception_when_url_is_not_valid()

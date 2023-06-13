@@ -17,6 +17,9 @@ use Tohyo\OpenGraphBundle\Attributes\DefaultProperty;
         #[DefaultProperty('url')]
         public OpenGraphImageData $image;
 
+        #[DefaultProperty('url')]
+        public OpenGraphVideoData $video;
+
         public ?string $description = null;
 
         public ?string $locale = null;
@@ -24,6 +27,6 @@ use Tohyo\OpenGraphBundle\Attributes\DefaultProperty;
         public function __construct()
         {
             $this->image = new OpenGraphImageData();
+            $this->video = new OpenGraphVideoData();
         }
-
 }
