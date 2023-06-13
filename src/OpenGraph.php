@@ -18,7 +18,8 @@ class OpenGraph
 
     public function __construct(
         public HttpClientInterface $client,
-        public ValidatorInterface $validator
+        public ValidatorInterface $validator,
+        public bool $validateData = true
     ) {
         $this->openGraphData = new OpenGraphData();
     }
@@ -34,7 +35,9 @@ class OpenGraph
             $this->buildProperty($node->attr('property'), $node->attr('content'));
         });
 
-        $this->resetPropertyWhenValidationFails($this->validator->validate($this->openGraphData));
+        if ($this->validateData)  {
+            $this->resetPropertyWhenValidationFails($this->validator->validate($this->openGraphData));
+        }
 
         return $this->openGraphData;
     }
