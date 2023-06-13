@@ -25,6 +25,8 @@ class UnitTest extends TestCase
         <meta property="og:video" content="website-video">
         <meta property="og:description" content="website-description">
         <meta property="og:locale" content="website-locale">
+        <meta property="og:determiner" content="website-determiner">
+        <meta property="og:site_name" content="website-sitename">
     </head>
     <body>
         
@@ -51,6 +53,8 @@ HTML
         $this->assertSame('website-video', $openGraphData->video->url);
         $this->assertSame('website-description', $openGraphData->description);
         $this->assertSame('website-locale', $openGraphData->locale);
+        $this->assertSame('website-determiner', $openGraphData->determiner);
+        $this->assertSame('website-sitename', $openGraphData->siteName);
     }
 
     public function test_it_reset_property_when_validation_fails()
@@ -175,6 +179,39 @@ HTML
         $this->assertSame('video-alt', $openGraphData->video->alt);
     }
 
+    public function test_it_populate_correctly_audio_structured_data()
+    {
+        $response = new MockResponse(
+            <<<'HTML'
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta property="og:audio:url" content="audio-url">
+        <meta property="og:audio:secure_url" content="audio-secure-url">
+        <meta property="og:audio:type" content="audio-type">
+    </head>
+    <body>
+        
+    </body>
+</html>
+HTML
+        );
+
+        $openGraphService = new OpenGraph(
+            new MockHttpClient($response),
+            Validation::createValidatorBuilder()
+                ->enableAnnotationMapping()
+                ->getValidator()
+        );
+
+        $openGraphData = $openGraphService->getData('http://test-open-graph-url.com');
+
+        $this->assertInstanceOf(OpenGraphData::class, $openGraphData);
+
+        $this->assertSame('audio-url', $openGraphData->audio->url);
+        $this->assertSame('audio-secure-url', $openGraphData->audio->secureUrl);
+        $this->assertSame('audio-type', $openGraphData->audio->type);
+    }
     public function test_it_throws_a_invalid_argument_exception_when_url_is_not_valid()
     {
         $this->expectException(\InvalidArgumentException::class);
