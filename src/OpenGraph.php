@@ -39,12 +39,10 @@ class OpenGraph
         return $this->openGraphData;
     }
 
-
-
     private function buildProperty(string $domProperty, string $content): void
     {
         $reflection = new \ReflectionClass($this->openGraphData);
-        preg_match('/og:([a-zA-Z0-9]+):*([a-zA-Z0-9]*)/', $domProperty, $matches);
+        preg_match('/og:([a-zA-Z0-9]+):*([a-zA-Z0-9_]*)/', $domProperty, $matches);
 
         if (property_exists($this->openGraphData, $matches[1])) {
             $defaultProperty = $reflection->getProperty($matches[1])->getAttributes(DefaultProperty::class);
@@ -52,7 +50,11 @@ class OpenGraph
             if (empty($defaultProperty)) {
                 $this->openGraphData->{$matches[1]} = $content;
             } else {
-                $this->openGraphData->{$matches[1]}->{$defaultProperty[0]->getArguments()[0]} = $content;
+                if ($matches[2]) {
+                    $this->openGraphData->{$matches[1]}->{$this->camelize($matches[2])} = $content;
+                } else {
+                    $this->openGraphData->{$matches[1]}->{$defaultProperty[0]->getArguments()[0]} = $content;
+                }
             }
         }
     }
@@ -62,5 +64,10 @@ class OpenGraph
         foreach ($constraintViolationList as $constraintViolation) {
             $this->openGraphData->{$constraintViolation->getPropertyPath()} = null;
         }
+    }
+
+    private function camelize(string $string): string
+    {
+        return lcfirst(str_replace('_', '', ucwords($string, '_')));
     }
 }

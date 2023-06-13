@@ -92,6 +92,47 @@ HTML
         $this->assertSame('website-locale', $openGraphData->locale);
     }
 
+    public function test_it_populate_correctly_image_structured_data()
+    {
+        $response = new MockResponse(
+            <<<'HTML'
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta property="og:image:url" content="image-url">
+        <meta property="og:image:secure_url" content="image-secure-url">
+        <meta property="og:image:type" content="image-type">
+        <meta property="og:image:width" content="image-width">
+        <meta property="og:image:height" content="image-height">
+        <meta property="og:image:alt" content="image-alt">
+    </head>
+    <body>
+        
+    </body>
+</html>
+HTML
+        );
+
+        $openGraphService = new OpenGraph(
+            new MockHttpClient($response),
+            Validation::createValidatorBuilder()
+                ->enableAnnotationMapping()
+                ->getValidator()
+        );
+
+        $openGraphData = $openGraphService->getData('http://test-open-graph-url.com');
+
+        $this->assertInstanceOf(OpenGraphData::class, $openGraphData);
+
+        $this->assertSame('image-url', $openGraphData->image->url);
+        $this->assertSame('image-secure-url', $openGraphData->image->secureUrl);
+        $this->assertSame('image-type', $openGraphData->image->type);
+        $this->assertSame('image-width', $openGraphData->image->width);
+        $this->assertSame('image-height', $openGraphData->image->height);
+        $this->assertSame('image-alt', $openGraphData->image->alt);
+    }
+
     public function test_it_throws_a_invalid_argument_exception_when_url_is_not_valid()
     {
         $this->expectException(\InvalidArgumentException::class);
