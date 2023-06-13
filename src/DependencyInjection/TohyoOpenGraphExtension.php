@@ -13,5 +13,16 @@ class TohyoOpenGraphExtension extends Extension
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+
+        $configuration = $this->getConfiguration($configs, $container);
+        $config = $this->processConfiguration($configuration, $configs);
+
+        $definition = $container->getDefinition('tohyo_open_graph.open_graph');
+        $definition->setArgument(2, $config['validate_graph_data']);
+    }
+
+    public function getAlias(): string
+    {
+        return "tohyo_open_graph";
     }
 }
