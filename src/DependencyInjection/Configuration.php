@@ -14,7 +14,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->booleanNode('validate_graph_data')->defaultTrue()->end()
+                ->booleanNode('validate_graph_data')->defaultFalse()->end()
             ->end()
         ;
 

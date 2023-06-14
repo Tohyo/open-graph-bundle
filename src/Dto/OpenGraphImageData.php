@@ -6,8 +6,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class OpenGraphImageData
 {
+    #[Assert\Url]
     public ?string $url = null;
 
+    #[Assert\Url]
     public ?string $secureUrl = null;
 
     public ?string $type = null;
