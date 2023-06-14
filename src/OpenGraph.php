@@ -20,7 +20,7 @@ class OpenGraph
     public function __construct(
         public HttpClientInterface $client,
         public ValidatorInterface $validator,
-        public bool $validateData = true
+        public bool $validateData = false
     ) {
         $this->openGraphData = new OpenGraphData();
     }
@@ -68,7 +68,12 @@ class OpenGraph
     private function resetPropertyWhenValidationFails(ConstraintViolationList $constraintViolationList): void
     {
         foreach ($constraintViolationList as $constraintViolation) {
-            $this->openGraphData->{$constraintViolation->getPropertyPath()} = null;
+            $propertyPath = explode('.', $constraintViolation->getPropertyPath());
+            if (isset($propertyPath[1])) {
+                $this->openGraphData->{$propertyPath[0]}->{$propertyPath[1]} = null;
+            } else {
+                $this->openGraphData->{$constraintViolation->getPropertyPath()} = null;
+            }
         }
     }
 }

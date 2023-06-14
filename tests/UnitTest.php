@@ -69,7 +69,7 @@ HTML
         <meta property="og:type" content="website-type">
         <meta property="og:image" content="website-image">
         <meta property="og:description" content="website-description">
-        <meta property="og:locale" content="website-locale">
+        <meta property="og:locale" content="fr_FR">
         <meta property="og:nook" content="nook">
     </head>
     <body>
@@ -83,7 +83,8 @@ HTML
             new MockHttpClient($response),
             Validation::createValidatorBuilder()
                 ->enableAnnotationMapping()
-                ->getValidator()
+                ->getValidator(),
+            true
         );
 
         $openGraphData = $openGraphService->getData('http://test-open-graph-url.com');
@@ -93,9 +94,9 @@ HTML
         $this->assertSame('website-title', $openGraphData->title);
         $this->assertSame(null, $openGraphData->url);
         $this->assertSame('website-type', $openGraphData->type);
-        $this->assertSame('website-image', $openGraphData->image->url);
+        $this->assertSame(null, $openGraphData->image->url);
         $this->assertSame('website-description', $openGraphData->description);
-        $this->assertSame('website-locale', $openGraphData->locale);
+        $this->assertSame('fr_FR', $openGraphData->locale);
     }
 
     public function test_it_populate_correctly_image_structured_data()

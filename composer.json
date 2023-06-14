@@ -22,7 +22,8 @@
         "symfony/dom-crawler": "^6.3",
         "symfony/framework-bundle": "^6.3",
         "symfony/css-selector": "^6.3",
-        "symfony/validator": "^6.3"
+        "symfony/validator": "^6.3",
+        "symfony/intl": "^6.3"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^6.3"

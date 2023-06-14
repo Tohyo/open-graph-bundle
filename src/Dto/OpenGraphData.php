@@ -5,6 +5,7 @@ namespace Tohyo\OpenGraphBundle\Dto;
 use Symfony\Component\Validator\Constraints as Assert;
 use Tohyo\OpenGraphBundle\Attributes\DefaultProperty;
 
+#[Assert\Cascade]
  class OpenGraphData
 {
         public ?string $title = null;
@@ -25,6 +26,9 @@ use Tohyo\OpenGraphBundle\Attributes\DefaultProperty;
 
         public ?string $description = null;
 
+         #[Assert\Locale(
+             canonicalize: true,
+         )]
         public ?string $locale = null;
 
         public ?string $determiner = null;
