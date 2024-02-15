@@ -15,17 +15,17 @@
     },
     "require": {
         "php": "^8.2",
-        "symfony/config": "^6.3",
-        "symfony/dependency-injection": "^6.3",
-        "symfony/http-kernel": "^6.3",
-        "symfony/http-client": "^6.3",
-        "symfony/dom-crawler": "^6.3",
-        "symfony/framework-bundle": "^6.3",
-        "symfony/css-selector": "^6.3",
-        "symfony/validator": "^6.3",
-        "symfony/intl": "^6.3"
+        "symfony/config": "^6.3|^7.0",
+        "symfony/dependency-injection": "^6.3|^7.0",
+        "symfony/http-kernel": "^6.3|^7.0",
+        "symfony/http-client": "^6.3|^7.0",
+        "symfony/dom-crawler": "^6.3|^7.0",
+        "symfony/framework-bundle": "^6.3|^7.0",
+        "symfony/css-selector": "^6.3|^7.0",
+        "symfony/validator": "^6.3|^7.0",
+        "symfony/intl": "^6.3|^7.0"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^6.3"
+        "symfony/phpunit-bridge": "^6.3|^7.0"
     }
 }
