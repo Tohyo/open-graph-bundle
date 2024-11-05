@@ -36,7 +36,7 @@ class OpenGraph
             $this->buildProperty($node->attr('property'), $node->attr('content'));
         });
 
-        if ($this->validateData)  {
+        if ($this->validateData) {
             $this->resetPropertyWhenValidationFails($this->validator->validate($this->openGraphData));
         }
 
@@ -77,3 +77,4 @@ class OpenGraph
         }
     }
 }
+

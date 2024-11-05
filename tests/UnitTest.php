@@ -38,7 +38,7 @@ HTML
         $openGraphService = new OpenGraph(
             new MockHttpClient($response),
             Validation::createValidatorBuilder()
-                ->enableAnnotationMapping()
+                ->enableAttributeMapping()
                 ->getValidator()
         );
 
@@ -82,7 +82,7 @@ HTML
         $openGraphService = new OpenGraph(
             new MockHttpClient($response),
             Validation::createValidatorBuilder()
-                ->enableAnnotationMapping()
+                ->enableAttributeMapping()
                 ->getValidator(),
             true
         );
@@ -124,7 +124,7 @@ HTML
         $openGraphService = new OpenGraph(
             new MockHttpClient($response),
             Validation::createValidatorBuilder()
-                ->enableAnnotationMapping()
+                ->enableAttributeMapping()
                 ->getValidator()
         );
 
@@ -164,7 +164,7 @@ HTML
         $openGraphService = new OpenGraph(
             new MockHttpClient($response),
             Validation::createValidatorBuilder()
-                ->enableAnnotationMapping()
+                ->enableAttributeMapping()
                 ->getValidator()
         );
 
@@ -201,7 +201,7 @@ HTML
         $openGraphService = new OpenGraph(
             new MockHttpClient($response),
             Validation::createValidatorBuilder()
-                ->enableAnnotationMapping()
+                ->enableAttributeMapping()
                 ->getValidator()
         );
 
@@ -220,10 +220,11 @@ HTML
         $openGraphService = new OpenGraph(
             new MockHttpClient(),
             Validation::createValidatorBuilder()
-                ->enableAnnotationMapping()
+                ->enableAttributeMapping()
                 ->getValidator()
         );
 
         $openGraphService->getData('not-a-url');
     }
 }
+

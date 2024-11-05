@@ -6,11 +6,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class OpenGraphAudioData
 {
-    #[Assert\Url]
+    #[Assert\Url(
+        requireTld: true
+    )]
     public ?string $url = null;
 
-    #[Assert\Url]
+    #[Assert\Url(
+        requireTld: true
+    )]
     public ?string $secureUrl = null;
 
     public ?string $type = null;
 }
+

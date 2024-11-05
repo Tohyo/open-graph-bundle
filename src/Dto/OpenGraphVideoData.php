@@ -6,10 +6,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class OpenGraphVideoData
 {
-    #[Assert\Url]
+    #[Assert\Url(
+        requireTld: true
+    )]
     public ?string $url = null;
 
-    #[Assert\Url]
+    #[Assert\Url(
+        requireTld: true
+    )]
     public ?string $secureUrl = null;
 
     public ?string $type = null;
@@ -20,3 +24,4 @@ class OpenGraphVideoData
 
     public ?string $alt = "";
 }
+

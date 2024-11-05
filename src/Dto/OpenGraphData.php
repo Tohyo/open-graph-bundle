@@ -6,11 +6,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Tohyo\OpenGraphBundle\Attributes\DefaultProperty;
 
 #[Assert\Cascade]
- class OpenGraphData
+class OpenGraphData
 {
         public ?string $title = null;
 
-        #[Assert\Url]
+        #[Assert\Url(
+                requireTld: true
+        )]
         public ?string $url = null;
 
         public ?string $type = null;
@@ -26,9 +28,9 @@ use Tohyo\OpenGraphBundle\Attributes\DefaultProperty;
 
         public ?string $description = null;
 
-         #[Assert\Locale(
-             canonicalize: true,
-         )]
+        #[Assert\Locale(
+                canonicalize: true,
+        )]
         public ?string $locale = null;
 
         public ?string $determiner = null;
@@ -37,8 +39,9 @@ use Tohyo\OpenGraphBundle\Attributes\DefaultProperty;
 
         public function __construct()
         {
-            $this->image = new OpenGraphImageData();
-            $this->video = new OpenGraphVideoData();
-            $this->audio = new OpenGraphAudioData();
+                $this->image = new OpenGraphImageData();
+                $this->video = new OpenGraphVideoData();
+                $this->audio = new OpenGraphAudioData();
         }
 }
+
