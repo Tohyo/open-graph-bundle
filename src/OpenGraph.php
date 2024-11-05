@@ -69,10 +69,14 @@ class OpenGraph
     {
         foreach ($constraintViolationList as $constraintViolation) {
             $propertyPath = explode('.', $constraintViolation->getPropertyPath());
-            if (isset($propertyPath[1])) {
-                $this->openGraphData->{$propertyPath[0]}->{$propertyPath[1]} = null;
-            } else {
-                $this->openGraphData->{$constraintViolation->getPropertyPath()} = null;
+            try {
+                if (isset($propertyPath[1])) {
+                    $this->openGraphData->{$propertyPath[0] ?? ''}->{$propertyPath[1] ?? ''} = null;
+                } else {
+                    $this->openGraphData->{$constraintViolation->getPropertyPath()} = null;
+                }
+            } catch (\Error $e) {
+                continue;
             }
         }
     }

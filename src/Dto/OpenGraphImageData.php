@@ -18,10 +18,10 @@ class OpenGraphImageData
 
     public ?string $type = null;
 
-    public ?string $width = "";
+    public ?string $width = null;
 
-    public ?string $height = "";
+    public ?string $height = null;
 
-    public ?string $alt = "";
+    public ?string $alt = null;
 }
 

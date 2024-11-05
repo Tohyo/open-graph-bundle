@@ -5,7 +5,7 @@
         https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
 
-        <service id="tohyo_open_graph.open_graph" class="Tohyo\OpenGraphBundle\OpenGraph" public="true">
+        <service id="tohyo_open_graph.open_graph" class="Tohyo\OpenGraphBundle\OpenGraph" public="true" autowire="true" autoconfigure="true">
             <argument type="service" id="http_client" />
             <argument type="service" id="validator" />
         </service>
